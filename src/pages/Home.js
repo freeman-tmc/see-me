@@ -3,32 +3,34 @@ import logo from '../logo.svg';
 import UserCard from '../UserCard';
 import { connect } from 'react-redux';
 import getUsersAction from '../actions/getUsersAction';
+import { showModalAction } from '../actions/modalAction';
+import Header from '../partials/Header';
+import Footer from '../partials/Footer';
+import Modal from '../partials/Modal';
+import Search from '../partials/Search';
 
 class Home extends Component {
 
-    componentDidMount() {
-        console.log('alob');
-        
+    componentDidMount() { 
         this.props.getUsersAction();
     }
 
     render() {
-        console.log(this.props);
-        
+    
         return (
             <div className="App">
-                <header className="App-header">
-                    <img src={logo} className="App-logo" alt="logo" />
-                    <h1 className="App-title">Welcome to React</h1>
-                </header>
-                <p className="App-intro">
-                    To get started, edit <code>src/App.js</code> and save to reload.
-                </p>
+                <Header searchData={this.props.searchDataAction}/>
+                <Search />
                 <div className='user-list'>
-                {this.props.data.map((el, i) => {
-                    return <UserCard {...el} key={i} />
-                })}
+                    {this.props.data.map((el, i) => {
+                        const dd = {...el, showModalAction: this.props.showModalAction};
+                        return <UserCard {...dd} key={i} />
+                    })}
                 </div>
+                {this.props.modalData.showModal 
+                    ? <Modal {...this.props.modalData.modalContent} />
+                    : ''}
+                <Footer />
             </div>
         )
     }
@@ -37,7 +39,8 @@ class Home extends Component {
 const mapStateToProps = state => ({ ...state });
 
 const mapDispatchToProps = {
-    getUsersAction: getUsersAction
+    getUsersAction: getUsersAction,
+    showModalAction
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Home);
