@@ -8,10 +8,16 @@ var usersSchema = new Schema({
         default: 'https://vignette.wikia.nocookie.net/bungostraydogs/images/1/1e/Profile-icon-9.png/revision/latest?cb=20171030104015'
     },
     age: Number,
-    name: String,
+    name: {
+        type: String,
+        required: true
+    },
     gender: String,
     company: String,
-    email: String,
+    email: {
+        type:String,
+        required: true
+    },
     phone: String,
     address: String
 });

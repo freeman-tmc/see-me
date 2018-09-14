@@ -32,6 +32,8 @@ class CreateUser extends Component {
     }
 
     handleChange = (event) => {
+        console.dir(event.target);
+        
         this.props.inputChangeAction(event.target.name, event.target.value);
     }
 
@@ -44,7 +46,7 @@ class CreateUser extends Component {
                     <input name="name" type="text" value={this.props.nameInputValue} placeholder="Name" onChange={this.handleChange} />
                     <input name="email" type="email" value={this.props.emailInputValue} placeholder="Email" onChange={this.handleChange} />
                     <input name="age" type="number" value={this.props.ageInputValue} placeholder="Age" onChange={this.handleChange} />
-                    <input name="picture" type="text" value={this.props.pictureInputValue} placeholder="Age" onChange={this.handleChange} />
+                    <input name="picture" type="file" onChange={this.handleChange} multiple />
                     <button onClick={this.submitData}>Submit</button>
                 </div>
             </div>
